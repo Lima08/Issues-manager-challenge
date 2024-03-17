@@ -10,7 +10,7 @@ Before you begin, ensure you have met the following requirements:
 
 - Clone this repository to your local machine.
 - Navigate to the project directory.
-- Install the dependencies for both the back-end and front-end applications.
+- Install the dependencies for both the back-end and front-end applications (npm install).
 - Start both the back-end and front-end applications concurrently.
 
 Now, both applications should be running concurrently. The back-end server will be running on its specified port, and the front-end application will be running on its specified port.
