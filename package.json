@@ -1,0 +1,17 @@
+{
+  "name": "sitemate-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run start:back\" \"npm run start:front\"",
+    "start:back": "cd sitemate-challenge-back && npm start",
+    "start:front": "cd sitemate-challenge-front && npm start"
+  },
+  "keywords": [],
+  "author": "Joao Paulo Gomes Lima",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
