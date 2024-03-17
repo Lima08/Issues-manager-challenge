@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run start:back\" \"npm run start:front\"",
-    "start:back": "cd sitemate-challenge-back && npm start",
-    "start:front": "cd sitemate-challenge-front && npm start"
+    "start:back": "cd back && npm start",
+    "start:front": "cd front && npm start"
   },
   "keywords": [],
   "author": "Joao Paulo Gomes Lima",

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sitemate Challenge</title>
+</head>
+
+<body>
+  <main id="app">
+    <h1>Issues</h1>
+    <ul>
+      <li v-for="issue in issues" :key="issue.id">
+        {{ issue.title }} - {{ issue.description }}
+        <button @click="editIssue(issue)">Edit</button>
+        <button @click="deleteIssue(issue.id)">delete</button>
+      </li>
+    </ul>
+
+    <section>
+      <h2>Create new issue</h2>
+      <form @submit.prevent="createIssue">
+        <input type="text" name="title" placeholder="Title" v-model="newIssue.title" />
+        <input type="text" name="description" placeholder="Description" v-model="newIssue.description" />
+        <button type="submit">Create Issue</button>
+    </section>
+
+    <section v-if="editedIssue">
+      <h2>Edit issue</h2>
+      <form>
+        <input type="text" name="title" placeholder="Title" v-model="editedIssue.title" />
+        <input type="text" name="description" placeholder="Description" v-model="editedIssue.description" />
+        <button type="button" @click="updateIssue">Update Issue</button>
+        <button type="button" @click="closeForm">Cancel</button>
+      </form>
+    </section>
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          issues: [],
+          newIssue: {
+            id: '',
+            title: '',
+            description: ''
+          },
+          editedIssue: null
+        };
+      },
+      async created() {
+        const response = await axios.get('http://localhost:3001/issues');
+        this.issues = response.data.issues;
+      },
+      methods: {
+        editIssue(issue) {
+          this.editedIssue = { ...issue };
+        },
+        closeForm() {
+          this.editedIssue = null;
+        },
+        async updateIssue() {
+          if (!this.editedIssue) return;
+          const response = await axios.put(`http://localhost:3001/issue/${this.editedIssue.id}`, this.editedIssue);
+          const index = this.issues.findIndex(issue => issue.id === this.editedIssue.id);
+          this.issues.splice(index, 1, response.data.updateIssue);
+          this.editedIssue = null;
+        },
+
+        async createIssue() {
+          const response = await axios.post('http://localhost:3001/issue', this.newIssue);
+          this.issues.push(response.data.issue);
+          this.newIssue.title = '';
+          this.newIssue.description = '';
+        },
+
+        async deleteIssue(id) {
+          const response = await axios.delete(`http://localhost:3001/issue/${id}`);
+          if (response.status === 200) {
+            const index = this.issues.findIndex(issue => issue.id === id);
+            this.issues.splice(index, 1);
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
