@@ -1,4 +1,4 @@
-# Sitemate Challenge
+# Issues manager challenge
 This repository contains the Sitemate Challenge project, which includes both a back-end and a front-end application.
 
 ## Prerequisites
