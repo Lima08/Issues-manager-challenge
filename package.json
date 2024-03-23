@@ -1,5 +1,5 @@
 {
-  "name": "sitemate-challenge",
+  "name": "Issues manager challenge",
   "workspaces": ["back", "front"],
   "version": "1.0.0",
   "description": "",
